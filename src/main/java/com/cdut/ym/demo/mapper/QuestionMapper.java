@@ -3,6 +3,9 @@ package com.cdut.ym.demo.mapper;
 import com.cdut.ym.demo.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @Author: ym
@@ -13,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface QuestionMapper {
     @Insert("Insert into question (title,description,gmt_create,gmt_modified,creator,tag) values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
     void create(Question question);
+    @Select("Select * from question")
+    List<Question> list();
 }

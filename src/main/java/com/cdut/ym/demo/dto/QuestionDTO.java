@@ -1,13 +1,15 @@
-package com.cdut.ym.demo.model;
+package com.cdut.ym.demo.dto;
 
+import com.cdut.ym.demo.model.User;
 import lombok.Data;
 
 /**
  * @Author: ym
- * @Date: 2019/8/11 10:57
+ * @Date: 2019/8/15 23:15
  * @Version 1.0
  */
-public @Data class Question {
+@Data
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -18,5 +20,6 @@ public @Data class Question {
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
+    private User user;
 
 }

@@ -1,5 +1,6 @@
 package com.cdut.ym.demo.mapper;
 
+import com.cdut.ym.demo.dto.QuestionDTO;
 import com.cdut.ym.demo.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,5 +27,10 @@ public interface QuestionMapper {
     List<Question> listByUserId(@Param("userId")Integer userId,@Param(value = "offset") Integer offset,@Param(value = "size") Integer size);
     @Select("select count(1) from question where creator=#{userId}")
     Integer countByUserId(@Param("userId")Integer userId);
+
+
+
+    @Select("Select * from question where id =#{id}")
+    Question getById(@Param("id") Integer id);
 }
 

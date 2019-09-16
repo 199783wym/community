@@ -108,7 +108,7 @@ public class QuestionService {
 
     }
 
-    public QuestionDTO getByid(Integer id) {
+    public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
@@ -116,5 +116,16 @@ public class QuestionService {
         questionDTO.setUser(user);
 
         return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+        if(question.getId() == null){//create
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        } else{//update
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.update(question);
+        }
     }
 }

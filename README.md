@@ -4,4 +4,5 @@
 
 ##工具
 
-##绿块测试
+### 逆向工程覆盖生产
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

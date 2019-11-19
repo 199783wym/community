@@ -5,6 +5,7 @@ import com.cdut.ym.demo.dto.QuestionDTO;
 import com.cdut.ym.demo.exception.CustomizeErrorCode;
 import com.cdut.ym.demo.exception.CustomizeException;
 import com.cdut.ym.demo.mapper.QuestionMapper;
+import com.cdut.ym.demo.mapper.QuestioneExtMapper;
 import com.cdut.ym.demo.mapper.UserMapper;
 import com.cdut.ym.demo.model.Question;
 import com.cdut.ym.demo.model.QuestionExample;
@@ -26,6 +27,8 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private QuestioneExtMapper questioneExtMapper;
     @Autowired
     private UserMapper userMapper;
 
@@ -152,12 +155,10 @@ public class QuestionService {
     }
 
     public void incView(Integer id) {
-        Question question = questionMapper.selectByPrimaryKey(id);
-        Question updateQuestion = new Question();
-        updateQuestion.setViewCount(question.getViewCount()+1);
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.createCriteria()
-                .andIdEqualTo(id);
-        questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questioneExtMapper.incView(question);
+
     }
 }

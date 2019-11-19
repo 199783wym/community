@@ -8,5 +8,6 @@ import org.apache.ibatis.session.RowBounds;
 import java.util.List;
 
 public interface QuestioneExtMapper {
+    //阅读数加一
     int incView(Question record);
 }

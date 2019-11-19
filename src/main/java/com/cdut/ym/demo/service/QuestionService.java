@@ -2,6 +2,8 @@ package com.cdut.ym.demo.service;
 
 import com.cdut.ym.demo.dto.PaginationDTO;
 import com.cdut.ym.demo.dto.QuestionDTO;
+import com.cdut.ym.demo.exception.CustomizeErrorCode;
+import com.cdut.ym.demo.exception.CustomizeException;
 import com.cdut.ym.demo.mapper.QuestionMapper;
 import com.cdut.ym.demo.mapper.UserMapper;
 import com.cdut.ym.demo.model.Question;
@@ -28,8 +30,6 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public PaginationDTO list(Integer page, Integer size) {
-
-
         //size*{page-1}
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
@@ -115,11 +115,13 @@ public class QuestionService {
         paginationDTO.setQuestions(questionDTOList);
 
         return paginationDTO;
-
     }
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question ==null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUNT);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -142,7 +144,20 @@ public class QuestionService {
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            if (updated != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUNT);
+            }
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        Question updateQuestion = new Question();
+        updateQuestion.setViewCount(question.getViewCount()+1);
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria()
+                .andIdEqualTo(id);
+        questionMapper.updateByExampleSelective(updateQuestion, questionExample);
     }
 }

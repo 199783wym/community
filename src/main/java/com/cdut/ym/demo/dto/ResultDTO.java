@@ -1,5 +1,6 @@
 package com.cdut.ym.demo.dto;
 
+import com.cdut.ym.demo.exception.CustomizeErrorCode;
 import lombok.Data;
 
 import javax.xml.transform.Result;
@@ -21,4 +22,7 @@ public class ResultDTO {
         return resultDTO;
     }
 
+    public static ResultDTO errorOf(CustomizeErrorCode noLogin) {
+        return errorOf(noLogin.getCode(), noLogin.getMessage());
+    }
 }

@@ -3,6 +3,7 @@ package com.cdut.ym.demo.controller;
 
 import com.cdut.ym.demo.dto.CommentDTO;
 import com.cdut.ym.demo.dto.ResultDTO;
+import com.cdut.ym.demo.exception.CustomizeErrorCode;
 import com.cdut.ym.demo.mapper.CommentMapper;
 import com.cdut.ym.demo.model.Comment;
 import com.cdut.ym.demo.model.User;
@@ -31,7 +32,7 @@ public class CommentController {
 
         User user = (User)request.getSession().getAttribute("user");
         if (user == null) {
-            return ResultDTO.errorOf(2002, "请先登录！");
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
         Comment comment = new Comment();
         comment.setParentId(commentDTO.getParentId());

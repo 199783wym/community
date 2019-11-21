@@ -25,4 +25,10 @@ public class ResultDTO {
     public static ResultDTO errorOf(CustomizeErrorCode noLogin) {
         return errorOf(noLogin.getCode(), noLogin.getMessage());
     }
+    public static ResultDTO okOf(){
+        ResultDTO resultDTO = new ResultDTO();
+        resultDTO.setCode(200);
+        resultDTO.setMessage("请求成功");
+        return resultDTO;
+    }
 }

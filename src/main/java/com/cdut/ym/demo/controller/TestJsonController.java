@@ -16,6 +16,31 @@ public class TestJsonController {
         co.setId(111111L);
         co.setCommentator(1111111);
         co.setGmtCreate(System.currentTimeMillis());
+
+        String[] strs = new String[10];
+        int i =strs.length;
+        int j= strs[i].length();
+        char c = 'c';
+        if (c != 'c') {
+
+        }
         return co;
+    }
+
+    @RequestMapping("shop")
+    public String shop(){
+        return "shop";
+    }
+    @RequestMapping("shop1")
+    public String shop1(){
+        return "example01";
+    }
+    @RequestMapping("shop2")
+    public String shop2(){
+        return "example02";
+    }
+    @RequestMapping("shop3")
+    public String shop3(){
+        return "add";
     }
 }

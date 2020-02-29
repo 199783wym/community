@@ -10,4 +10,6 @@ import java.util.List;
 public interface QuestioneExtMapper {
     //阅读数加一
     int incView(Question record);
+    //评论加一
+    int incCommentCount(Question record);
 }

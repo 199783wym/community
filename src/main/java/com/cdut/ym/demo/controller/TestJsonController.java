@@ -1,5 +1,6 @@
 package com.cdut.ym.demo.controller;
 
+import com.cdut.ym.demo.dto.CommentDTO;
 import com.cdut.ym.demo.model.Comment;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestJsonController {
     @RequestMapping("/test")
     @ResponseBody
-    public Comment test (@RequestBody Comment co){
-        co.setId(111111L);
-        co.setCommentator(1111111);
-        co.setGmtCreate(System.currentTimeMillis());
+    public CommentDTO test(CommentDTO co){
+//        Comment co = new Comment();
+        co.setContent("aaa");
+//        co.setParentId(Long.valueOf(id));
+        System.out.println(co.getParentId()+"parentId");
+
         return co;
     }
 }

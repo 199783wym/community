@@ -1,7 +1,9 @@
 package com.cdut.ym.demo.dto;
 
 import com.cdut.ym.demo.exception.CustomizeErrorCode;
+import com.cdut.ym.demo.exception.CustomizeException;
 import lombok.Data;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.transform.Result;
 
@@ -25,10 +27,17 @@ public class ResultDTO {
     public static ResultDTO errorOf(CustomizeErrorCode noLogin) {
         return errorOf(noLogin.getCode(), noLogin.getMessage());
     }
+
+    public static ResultDTO errorOf(CustomizeException e) {
+        return errorOf(e.getCode(), e.getMessage());
+    }
+
     public static ResultDTO okOf(){
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setCode(200);
         resultDTO.setMessage("请求成功");
         return resultDTO;
     }
+
+
 }

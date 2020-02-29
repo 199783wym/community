@@ -11,14 +11,5 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TestJsonController {
-    @RequestMapping("/test")
-    @ResponseBody
-    public CommentDTO test(CommentDTO co){
-//        Comment co = new Comment();
-        co.setContent("aaa");
-//        co.setParentId(Long.valueOf(id));
-        System.out.println(co.getParentId()+"parentId");
 
-        return co;
-    }
 }

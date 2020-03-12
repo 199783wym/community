@@ -5,10 +5,7 @@ import com.cdut.ym.demo.dto.CommentDTO;
 import com.cdut.ym.demo.enums.CommentTypeEnum;
 import com.cdut.ym.demo.exception.CustomizeErrorCode;
 import com.cdut.ym.demo.exception.CustomizeException;
-import com.cdut.ym.demo.mapper.CommentMapper;
-import com.cdut.ym.demo.mapper.QuestionMapper;
-import com.cdut.ym.demo.mapper.QuestioneExtMapper;
-import com.cdut.ym.demo.mapper.UserMapper;
+import com.cdut.ym.demo.mapper.*;
 import com.cdut.ym.demo.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,8 @@ public class CommentService {
     private QuestioneExtMapper questioneExtMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentExtMapper commentExtMapper;
 
     @Transactional
      public void insert(Comment comment) {
@@ -53,6 +52,11 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }else{
                 commentMapper.insert(comment);
+                //增加评论数
+                Comment parentComment = new Comment();
+                parentComment.setId(comment.getParentId());
+                parentComment.setCommentCount(1);
+                commentExtMapper.incCommentCount(parentComment);
             }
         }else{
             //回复问题
